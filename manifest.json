@@ -1,0 +1,21 @@
+{
+    "manifest_version": 3,
+    "name": "Tweet Saver",
+    "version": "1.0",
+    "description": "Save tweets to a JSON file.",
+    "permissions": ["storage", "activeTab", "scripting"],
+    "background": {
+      "service_worker": "background.js"
+    },
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "content_scripts": [
+      {
+        "matches": ["*://x.com/*"],
+        "js": ["content.js"],
+        "css": ["styles.css"]
+      }
+    ]
+  }
+  
