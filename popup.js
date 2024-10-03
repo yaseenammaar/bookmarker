@@ -5,7 +5,7 @@ chrome.storage.local.get('tweets', function (result) {
     console.log(tweetsList)
     tweets.forEach(tweet => {
         let listItem = document.createElement('li');
-        listItem.textContent = tweet;
+        listItem.textContent = tweet.tweetText;
         tweetsList.appendChild(listItem);
     });
 });
