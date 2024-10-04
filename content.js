@@ -65,7 +65,7 @@ function storeTweet(tweetText,username,datetime) {
                     console.log('Tweet saved!');
                 });
 
-                const urll = "http://13.50.119.185/api/data/save/tweets";
+                const urll = "https://api.dosniff.com/api/data/save/tweets";
                 const options = {
                   method: "POST",
                   headers: {

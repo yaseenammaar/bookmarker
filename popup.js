@@ -16,7 +16,7 @@ document.getElementById('export').addEventListener('click', function() {
         let tweets = result.tweets || [];
         console.log('tweets:',tweets)
 
-        const urll = "http://13.50.119.185/api/data/save/tweets";
+        const urll = "https://api.dosniff.com/api/data/save/tweets";
         const options = {
           method: "POST",
           headers: {

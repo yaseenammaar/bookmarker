@@ -4,6 +4,7 @@
     "version": "1.0",
     "description": "Save tweets to a JSON file.",
     "permissions": ["storage", "activeTab", "scripting"],
+    
     "background": {
       "service_worker": "background.js"
     },
