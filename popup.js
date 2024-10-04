@@ -16,22 +16,22 @@ document.getElementById('export').addEventListener('click', function() {
         let tweets = result.tweets || [];
         console.log('tweets:',tweets)
 
-        const urll = "https://api.dosniff.com/api/data/save/tweets";
-        const options = {
-          method: "POST",
-          headers: {
-            Accept: "application/json",
-            "Content-Type": "application/json;charset=UTF-8",
-          },
-          body: JSON.stringify({
-           tweets
-          }),
-        };
-        fetch(urll, options)
-          .then((response) => response.json())
-          .then((data) => {
-            console.log(data);
-          });
+        // const urll = "https://api.dosniff.com/api/data/save/tweets";
+        // const options = {
+        //   method: "POST",
+        //   headers: {
+        //     Accept: "application/json",
+        //     "Content-Type": "application/json;charset=UTF-8",
+        //   },
+        //   body: JSON.stringify({
+        //    tweets
+        //   }),
+        // };
+        // fetch(urll, options)
+        //   .then((response) => response.json())
+        //   .then((data) => {
+        //     console.log(data);
+        //   });
 
         // axios.post('http://13.50.119.185/api/data/save/tweets', tweets)
         //     .then(function (response) {
