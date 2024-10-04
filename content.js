@@ -28,10 +28,10 @@ window.addEventListener('load', function () {
                         let datelementt = thirdLink.querySelector('time'); // Modify if necessary based on the structure
                         usernamee = usernameElementt ? usernameElementt.textContent : null; // Extract the username text
                         datetime = datelementt ? datelementt.getAttribute('datetime') : null; // Extract the username text
-                        alert('if')
-                        alert(usernamee)
-                        alert('and')
-                        alert(datetime)
+                        // alert('if')
+                        // alert(usernamee)
+                        // alert('and')
+                        // alert(datetime)
 
                     }
                     // let usernameElement = tweet.querySelector('a[role="link"] div span span'); // Select the first <a> tag
@@ -41,7 +41,7 @@ window.addEventListener('load', function () {
 
                     // console.log(username)
                     storeTweet(tweetText,usernamee,datetime);
-                    alert(tweetText)
+                    // alert(tweetText)
 
                 });
             }
