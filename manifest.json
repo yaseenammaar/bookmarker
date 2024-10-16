@@ -13,7 +13,7 @@
     },
     "content_scripts": [
       {
-        "matches": ["*://x.com/*"],
+        "matches": ["*://x.com/*","https://www.linkedin.com/*"],
         "js": ["content.js","axios.min.js"],
         "css": ["styles.css"]
       }

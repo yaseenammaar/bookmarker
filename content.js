@@ -1,6 +1,7 @@
 // Wait until the tweets are loaded
 window.addEventListener('load', function () {
     // Function to add save icon to each tweet
+if (window.location.hostname.includes('x.com')) {
     function addSaveIcons() {
         let tweets = document.querySelectorAll('article');  // Adjust if needed for tweet structure
         // let tweets = document.querySelector('article');  // Adjust if needed for tweet structure
@@ -10,7 +11,7 @@ window.addEventListener('load', function () {
                 let saveIcon = document.createElement('button');
                 saveIcon.innerHTML = '💾';  // Save icon (you can replace it with an image or font icon)
                 saveIcon.classList.add('save-tweet-icon');
-                saveIcon.style.cssText = 'position:absolute; right:10px; top:10px; z-index:1000; cursor:pointer;';
+                saveIcon.style.cssText = 'position:absolute; left:20px; bottom:10px; z-index:1000; cursor:pointer;';
 
                 // Append the icon to the tweet
                 tweet.appendChild(saveIcon);
@@ -42,14 +43,53 @@ window.addEventListener('load', function () {
                     // console.log(username)
                     storeTweet(tweetText,usernamee,datetime);
                     // alert(tweetText)
+                    saveIcon.innerHTML = '✔'; 
 
                 });
             }
         });
     }
-
-    // Continuously monitor for new tweets being loaded
     setInterval(addSaveIcons, 3000);
+
+} 
+if(window.location.hostname.includes('linkedin.com')) {
+
+    function addSaveIconsForLinkedInPosts() {
+        const posts = document.querySelectorAll('.feed-shared-update-v2'); // Target LinkedIn posts
+
+        posts.forEach((post) => {
+            if (!post.querySelector('.save-post-icon')) {  // Prevent duplicate save buttons
+                let saveIcon = document.createElement('button');
+                saveIcon.innerHTML = '💾';  // Save icon (you can replace it with an image or font icon)
+                saveIcon.classList.add('save-post-icon');
+                saveIcon.style.cssText = 'position:absolute; right:10px; top:50px; z-index:1000; cursor:pointer; background:none; border:none;';
+
+                // Append the icon to the LinkedIn post
+                post.style.position = 'relative';  // Ensure post has relative positioning for absolute icon placement
+                post.appendChild(saveIcon);
+
+                // Attach event listener
+                saveIcon.addEventListener('click', () => {
+                    // Extract LinkedIn post text, username, and posted at datetime
+                    let postText = post.querySelector('span.break-words')?.innerText || '';  // Extract LinkedIn post text
+                    let postUsername = post.querySelector('.update-components-actor__meta-link')?.href || 'Unknown';  // Extract username
+                    let postDatetime = post.querySelector('time')?.getAttribute('datetime') || new Date().toISOString();  // Extract post timestamp
+
+                    if (postText) {
+                        storeLinkedinPosts(postText, postUsername, postDatetime);
+                        saveIcon.innerHTML = '✅';  // Change to "saved" icon after storing
+                    } else {
+                        console.log('Failed to extract post text.');
+                    }
+                });
+            }
+        });
+    }
+    setInterval(addSaveIconsForLinkedInPosts, 3000);  // For LinkedIn
+
+}
+    // Continuously monitor for new tweets being loaded
+
 });
 
 // Store tweet in local storage
@@ -74,6 +114,49 @@ function storeTweet(tweetText,username,datetime) {
                   },
                   body: JSON.stringify({
                     tweetText,username,datetime
+                  }),
+                };
+                fetch(urll, options)
+                  .then((response) => response.json())
+                  .then((data) => {
+                    console.log(data);
+                  });
+            
+            // Perform actions with the stored tweets
+        }
+    });
+    
+    // chrome.storage.local.get('tweets', function (result) {
+    //     let tweets = result.tweets || [];
+    //     tweets.push({tweetText,username});
+    //     alert(tweets);
+    //     chrome.storage.local.set({ 'tweets': tweets }, function () {
+    //         console.log('Tweet saved!');
+    //     });
+    // });
+}
+
+function storeLinkedinPosts(post,username,datetime) {
+
+    chrome.storage.local.get('posts', function (result) {
+        if (chrome.runtime.lastError) {
+            console.error("Error retrieving posts:", chrome.runtime.lastError);
+        } else {
+            let tweets = result.tweets || []; // Retrieve the 'tweets' array or set it as an empty array if not present
+            tweets.push({post,username,datetime});
+            chrome.storage.local.set({ 'posts': tweets }, function () {
+                    console.log('posts saved!');
+                });
+
+                const urll = "https://api.dosniff.com/api/data/save/linkedin/posts";
+                const options = {
+                  method: "POST",
+                  headers: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json;charset=UTF-8",
+                  },
+                  body: JSON.stringify({
+                    post,username,datetime
                   }),
                 };
                 fetch(urll, options)
