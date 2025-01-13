@@ -75,6 +75,33 @@ if(window.location.hostname.includes('linkedin.com')) {
                     let postUsername = post.querySelector('.update-components-actor__meta-link')?.href || 'Unknown';  // Extract username
                     let postDatetime = post.querySelector('time')?.getAttribute('datetime') || new Date().toISOString();  // Extract post timestamp
 
+                    //adding for time
+                    const relativeTimeElement = post.querySelector('.update-components-actor__sub-description');
+                    const timeText = relativeTimeElement.textContent.trim();
+                    console.log(timeText)
+                    const match = timeText.match(/(\d+)([hd])/);
+                    console.log(match)
+
+                    if (match) {
+                        const value = parseInt(match[1]);
+                        console.log(value)
+
+                        const unit = match[2];
+                        
+                        const now = new Date();
+                        
+                        if (unit === 'h') {
+                            now.setHours(now.getHours() - value);
+                        } else if (unit === 'd') {
+                            now.setDate(now.getDate() - value);
+                        }
+                        console.log(now)
+
+                        postDatetime = now;
+                    }
+                    //ending adding for time
+
+
                     if (postText) {
                         storeLinkedinPosts(postText, postUsername, postDatetime);
                         saveIcon.innerHTML = '✅';  // Change to "saved" icon after storing
