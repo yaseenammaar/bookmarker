@@ -132,7 +132,7 @@ function storeTweet(tweetText,username,datetime) {
                     console.log('Tweet saved!');
                 });
 
-                const urll = "https://api.dosniff.com/api/data/save/tweets";
+                const urll = "https://api.sniff.so/api/data/save/tweets";
                 const options = {
                   method: "POST",
                   headers: {
@@ -175,7 +175,7 @@ function storeLinkedinPosts(post,username,datetime) {
                     console.log('posts saved!');
                 });
 
-                const urll = "https://api.dosniff.com/api/data/save/linkedin/posts";
+                const urll = "https://api.sniff.so/api/data/save/linkedin/posts";
                 const options = {
                   method: "POST",
                   headers: {
